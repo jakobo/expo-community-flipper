@@ -1,0 +1,4 @@
+# Ignore artifacts:
+build
+__fixtures__
+__snapshots__
