@@ -96,10 +96,8 @@ function withIosFlipper(config: ExpoConfig, options: withFlipperOptions) {
   ]);
 }
 
-function withAndroidFlipper(
-  config: ExpoConfig,
-  { Flipper }: withFlipperOptions
-) {
+function withAndroidFlipper(config: ExpoConfig, options: withFlipperOptions) {
+  const { Flipper = null } = options || {};
   const flipperKey = "FLIPPER_VERSION";
   return withGradleProperties(config, (c) => {
     if (Flipper) {
