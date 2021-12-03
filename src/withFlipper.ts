@@ -1,4 +1,8 @@
-import plugins, { ConfigPlugin } from "@expo/config-plugins";
+import {
+  withDangerousMod,
+  withGradleProperties,
+  ConfigPlugin,
+} from "@expo/config-plugins";
 import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import resolveFrom from "resolve-from";
 import path from "path";
@@ -70,7 +74,7 @@ export function addFlipperToPodfile(
 }
 
 function withIosFlipper(config: ExpoConfig, options: withFlipperOptions) {
-  return plugins.withDangerousMod(config, [
+  return withDangerousMod(config, [
     "ios",
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
@@ -97,7 +101,7 @@ function withAndroidFlipper(
   { Flipper }: withFlipperOptions
 ) {
   const flipperKey = "FLIPPER_VERSION";
-  return plugins.withGradleProperties(config, (c) => {
+  return withGradleProperties(config, (c) => {
     if (Flipper) {
       // strip flipper key and re-add
       c.modResults = c.modResults.filter(
