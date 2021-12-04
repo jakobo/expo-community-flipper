@@ -27,6 +27,12 @@ describe("addFlipperToPodfile sdk43", () => {
     expect(addFlipperToPodfile(fixtures.sdk43.ios.Podfile)).toMatchSnapshot();
   });
 
+  it("modifies the Podfile with only a Flipper version", () => {
+    expect(
+      addFlipperToPodfile(fixtures.sdk43.ios.Podfile, "0.123.0")
+    ).toMatchSnapshot();
+  });
+
   it("modifies the Podfile with specified Flipper versions", () => {
     expect(
       addFlipperToPodfile(fixtures.sdk43.ios.Podfile, {

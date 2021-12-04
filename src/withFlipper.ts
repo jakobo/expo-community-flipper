@@ -9,15 +9,19 @@ import path from "path";
 import fs from "fs";
 import { ExpoConfig } from "@expo/config-types";
 
-export type withFlipperOptions = {
+export type withFlipperOptions = flipperOptions | string;
+
+type flipperOptions = {
   Flipper?: string;
-  ios?: {
-    "Flipper-Folly": string;
-    "Flipper-RSocket": string;
-    "Flipper-DoubleConversion": string;
-    "Flipper-Glog": string;
-    "Flipper-PeerTalk": string;
-  };
+  ios?: supportedPods;
+};
+
+type supportedPods = {
+  "Flipper-Folly": string;
+  "Flipper-RSocket": string;
+  "Flipper-DoubleConversion": string;
+  "Flipper-Glog": string;
+  "Flipper-PeerTalk": string;
 };
 
 async function getReactNativeFlipperPath(
@@ -39,22 +43,34 @@ export function addFlipperToPodfile(
   contents: string,
   options?: withFlipperOptions
 ) {
-  const { Flipper = null, ios = null } = options || {};
+  let flipperVersion: string | null = null;
+  let iosPods: supportedPods | null = null;
+
+  if (typeof options === "string") {
+    flipperVersion = options;
+  } else if (typeof options === "object" && options.ios) {
+    flipperVersion = options.Flipper || null;
+    iosPods = options.ios;
+  }
+
   const flipperVersions: string[] = [];
 
-  if (Flipper && ios) {
-    flipperVersions.push(`'Flipper' => '${Flipper}'`);
-    for (const pod of Object.getOwnPropertyNames(ios)) {
-      // @ts-ignore
-      flipperVersions.push(`'${pod}' => '${ios[pod]}'`);
+  if (flipperVersion) {
+    flipperVersions.push(`'Flipper' => '${flipperVersion}'`);
+    if (iosPods) {
+      for (const pod of Object.getOwnPropertyNames(iosPods)) {
+        flipperVersions.push(
+          `'${pod}' => '${iosPods[pod as keyof supportedPods]}'`
+        );
+      }
     }
   }
 
+  // https://react-native-community.github.io/upgrade-helper/?from=0.63.0&to=0.64.2
+  // https://github.com/expo/expo/tree/master/templates/expo-template-bare-minimum/
   const versionString = flipperVersions.length
     ? `{${flipperVersions.join(", ")}}`
     : "";
-  // https://react-native-community.github.io/upgrade-helper/?from=0.63.0&to=0.64.2
-  // https://github.com/expo/expo/tree/master/templates/expo-template-bare-minimum/
   const enableFlipper = mergeContents({
     tag: "flipper",
     src: contents,
@@ -66,7 +82,7 @@ export function addFlipperToPodfile(
 
   if (!enableFlipper.didMerge) {
     throw new Error(
-      "Cannot add Flipper to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile."
+      "Cannot add Flipper to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
     );
   }
 
@@ -97,10 +113,17 @@ function withIosFlipper(config: ExpoConfig, options: withFlipperOptions) {
 }
 
 function withAndroidFlipper(config: ExpoConfig, options: withFlipperOptions) {
-  const { Flipper = null } = options || {};
+  let flipperVersion: string | null = null;
+
+  if (typeof options === "string") {
+    flipperVersion = options;
+  } else if (typeof options === "object" && options.ios) {
+    flipperVersion = options.Flipper || null;
+  }
+
   const flipperKey = "FLIPPER_VERSION";
   return withGradleProperties(config, (c) => {
-    if (Flipper) {
+    if (flipperVersion) {
       // strip flipper key and re-add
       c.modResults = c.modResults.filter(
         (item) => !(item.type === "property" && item.key === flipperKey)
@@ -108,7 +131,7 @@ function withAndroidFlipper(config: ExpoConfig, options: withFlipperOptions) {
       c.modResults.push({
         type: "property",
         key: flipperKey,
-        value: Flipper,
+        value: flipperVersion,
       });
     }
 

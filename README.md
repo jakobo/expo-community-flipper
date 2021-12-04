@@ -12,9 +12,11 @@ Flipper Support for Expo Apps
 
 If you don't specify anything, `expo-community-flipper` will default to the version of Flipper bundled with the version of React Native you're currently using.
 
-Not sure what Flipper version you need? [Check the Official Flipper Podfile](https://github.com/facebook/flipper/blob/main/react-native/ReactNativeFlipperExample/ios/Podfile)
+Not sure what Flipper version you need? [Check the Official Flipper Podfile](https://github.com/facebook/flipper/blob/main/react-native/ReactNativeFlipperExample/ios/Podfile) if you are specifying all of Flipper's pods, or the latest version of [react-native-flipper](https://www.npmjs.com/package/react-native-flipper) if you are just specifying a flipper version.
 
-**Just Flipper**
+# Configuration
+
+## Flipper (React Native Default Version)
 
 ```json
 {
@@ -27,7 +29,22 @@ Not sure what Flipper version you need? [Check the Official Flipper Podfile](htt
 }
 ```
 
-**Alternate Config: With All Options**
+## Flipper with a specific version (since 43.0.5)
+
+```json
+{
+  "expo": {
+    "..."
+    "plugins": [
+      "expo-community-flipper", "0.123.0
+    ]
+  }
+}
+```
+
+## Flipper with all Pod dependencies included (since 43.0.1)
+
+_note: Android uses the same version as the primary `Flipper` pod_
 
 ```json
 {
