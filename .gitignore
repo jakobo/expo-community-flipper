@@ -1,6 +1,3 @@
-# Release
-build
-
 # yarn
 .pnp.*
 .yarn/*
