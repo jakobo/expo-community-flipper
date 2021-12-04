@@ -6,10 +6,9 @@ Flipper Support for Expo Apps
 
 # Usage (Quick Guide)
 
-**1.** Install the module along with `react-native-flipper`
-`yarn add expo-community-flipper react-native-flipper`
+**1.** Install the module along with [react-native-flipper](https://www.npmjs.com/package/react-native-flipper): `yarn add expo-community-flipper react-native-flipper`
 
-**2.** Add the plugin to your `plugins` section of your `app.json`, and optionally specify the version of Flipper and the pods that you want. In React-Native, the Android SDK is derrived from the main Flipper configuration.
+**2.** Add `expo-community-flipper` configuration to the `plugins` section of your `app.json`, as per the examples below. You have the option to specify the version of Flipper and the pods that you want to use. In React Native, the Android SDK is derived from the main Flipper configuration.
 
 If you don't specify anything, `expo-community-flipper` will default to the version of Flipper bundled with the version of React Native you're currently using.
 
