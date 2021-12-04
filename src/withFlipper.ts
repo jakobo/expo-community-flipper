@@ -13,16 +13,46 @@ export type withFlipperOptions = flipperOptions | string;
 
 type flipperOptions = {
   Flipper?: string;
-  ios?: supportedPods;
+  ios?: {
+    "Flipper-Folly": string;
+    "Flipper-RSocket": string;
+    "Flipper-DoubleConversion": string;
+    "Flipper-Glog": string;
+    "Flipper-PeerTalk": string;
+  };
 };
 
-type supportedPods = {
-  "Flipper-Folly": string;
-  "Flipper-RSocket": string;
-  "Flipper-DoubleConversion": string;
-  "Flipper-Glog": string;
-  "Flipper-PeerTalk": string;
+export type flipperConfig = {
+  ios: {
+    [key: string]: string | null;
+    Flipper: string | null;
+  };
+  android: string | null;
 };
+
+function getConfiguration(options?: withFlipperOptions): flipperConfig {
+  let flipperVersion: string | null = null;
+  let iosPods: { [key: string]: string } = {};
+
+  if (typeof options === "string") {
+    flipperVersion = options;
+  } else if (typeof options === "object") {
+    if (options.Flipper) {
+      flipperVersion = options.Flipper;
+    }
+    if (options.ios) {
+      iosPods = options.ios;
+    }
+  }
+
+  return {
+    ios: {
+      Flipper: flipperVersion,
+      ...iosPods,
+    },
+    android: flipperVersion,
+  };
+}
 
 async function getReactNativeFlipperPath(
   projectRoot: string
@@ -39,30 +69,20 @@ async function isFlipperLinked(): Promise<boolean> {
   return true;
 }
 
-export function addFlipperToPodfile(
-  contents: string,
-  options?: withFlipperOptions
-) {
-  let flipperVersion: string | null = null;
-  let iosPods: supportedPods | null = null;
-
-  if (typeof options === "string") {
-    flipperVersion = options;
-  } else if (typeof options === "object" && options.ios) {
-    flipperVersion = options.Flipper || null;
-    iosPods = options.ios;
+export function addFlipperToPodfile(contents: string, options: flipperConfig) {
+  // all flipper pods. Flipper must go first
+  const flipperVersions: string[] = [];
+  const { Flipper, ...rest } = options.ios;
+  if (Object.getOwnPropertyNames(rest).length > 0 && !Flipper) {
+    throw new Error(
+      "You cannot specify additional pods for Flipper without also specifying Flipper"
+    );
   }
 
-  const flipperVersions: string[] = [];
-
-  if (flipperVersion) {
-    flipperVersions.push(`'Flipper' => '${flipperVersion}'`);
-    if (iosPods) {
-      for (const pod of Object.getOwnPropertyNames(iosPods)) {
-        flipperVersions.push(
-          `'${pod}' => '${iosPods[pod as keyof supportedPods]}'`
-        );
-      }
+  if (options.ios.Flipper) {
+    flipperVersions.push(`'Flipper' => '${Flipper}'`);
+    for (const pod of Object.getOwnPropertyNames(rest)) {
+      flipperVersions.push(`'${pod}' => '${rest[pod]}'`);
     }
   }
 
@@ -89,7 +109,7 @@ export function addFlipperToPodfile(
   return enableFlipper.contents;
 }
 
-function withIosFlipper(config: ExpoConfig, options: withFlipperOptions) {
+function withIosFlipper(config: ExpoConfig, options: flipperConfig) {
   return withDangerousMod(config, [
     "ios",
     async (c) => {
@@ -112,18 +132,10 @@ function withIosFlipper(config: ExpoConfig, options: withFlipperOptions) {
   ]);
 }
 
-function withAndroidFlipper(config: ExpoConfig, options: withFlipperOptions) {
-  let flipperVersion: string | null = null;
-
-  if (typeof options === "string") {
-    flipperVersion = options;
-  } else if (typeof options === "object" && options.ios) {
-    flipperVersion = options.Flipper || null;
-  }
-
+function withAndroidFlipper(config: ExpoConfig, options: flipperConfig) {
   const flipperKey = "FLIPPER_VERSION";
   return withGradleProperties(config, (c) => {
-    if (flipperVersion) {
+    if (options.android) {
       // strip flipper key and re-add
       c.modResults = c.modResults.filter(
         (item) => !(item.type === "property" && item.key === flipperKey)
@@ -131,7 +143,7 @@ function withAndroidFlipper(config: ExpoConfig, options: withFlipperOptions) {
       c.modResults.push({
         type: "property",
         key: flipperKey,
-        value: flipperVersion,
+        value: options.android,
       });
     }
 
@@ -143,8 +155,9 @@ export const withFlipper: ConfigPlugin<withFlipperOptions> = (
   config,
   options
 ) => {
-  config = withIosFlipper(config, options);
-  config = withAndroidFlipper(config, options);
+  const opts = getConfiguration(options);
+  config = withIosFlipper(config, opts);
+  config = withAndroidFlipper(config, opts);
   return config;
 };
 

@@ -9,6 +9,28 @@ const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const resolve_from_1 = __importDefault(require("resolve-from"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+function getConfiguration(options) {
+    let flipperVersion = null;
+    let iosPods = {};
+    if (typeof options === "string") {
+        flipperVersion = options;
+    }
+    else if (typeof options === "object") {
+        if (options.Flipper) {
+            flipperVersion = options.Flipper;
+        }
+        if (options.ios) {
+            iosPods = options.ios;
+        }
+    }
+    return {
+        ios: {
+            Flipper: flipperVersion,
+            ...iosPods,
+        },
+        android: flipperVersion,
+    };
+}
 async function getReactNativeFlipperPath(projectRoot) {
     const resolved = resolve_from_1.default.silent(projectRoot, "react-native-flipper/package.json");
     return resolved ? path_1.default.dirname(resolved) : null;
@@ -18,22 +40,16 @@ async function isFlipperLinked() {
     return true;
 }
 function addFlipperToPodfile(contents, options) {
-    let flipperVersion = null;
-    let iosPods = null;
-    if (typeof options === "string") {
-        flipperVersion = options;
-    }
-    else if (typeof options === "object" && options.ios) {
-        flipperVersion = options.Flipper || null;
-        iosPods = options.ios;
-    }
+    // all flipper pods. Flipper must go first
     const flipperVersions = [];
-    if (flipperVersion) {
-        flipperVersions.push(`'Flipper' => '${flipperVersion}'`);
-        if (iosPods) {
-            for (const pod of Object.getOwnPropertyNames(iosPods)) {
-                flipperVersions.push(`'${pod}' => '${iosPods[pod]}'`);
-            }
+    const { Flipper, ...rest } = options.ios;
+    if (Object.getOwnPropertyNames(rest).length > 0 && !Flipper) {
+        throw new Error("You cannot specify additional pods for Flipper without also specifying Flipper");
+    }
+    if (options.ios.Flipper) {
+        flipperVersions.push(`'Flipper' => '${Flipper}'`);
+        for (const pod of Object.getOwnPropertyNames(rest)) {
+            flipperVersions.push(`'${pod}' => '${rest[pod]}'`);
         }
     }
     // https://react-native-community.github.io/upgrade-helper/?from=0.63.0&to=0.64.2
@@ -73,30 +89,24 @@ function withIosFlipper(config, options) {
     ]);
 }
 function withAndroidFlipper(config, options) {
-    let flipperVersion = null;
-    if (typeof options === "string") {
-        flipperVersion = options;
-    }
-    else if (typeof options === "object" && options.ios) {
-        flipperVersion = options.Flipper || null;
-    }
     const flipperKey = "FLIPPER_VERSION";
     return (0, config_plugins_1.withGradleProperties)(config, (c) => {
-        if (flipperVersion) {
+        if (options.android) {
             // strip flipper key and re-add
             c.modResults = c.modResults.filter((item) => !(item.type === "property" && item.key === flipperKey));
             c.modResults.push({
                 type: "property",
                 key: flipperKey,
-                value: flipperVersion,
+                value: options.android,
             });
         }
         return c;
     });
 }
 const withFlipper = (config, options) => {
-    config = withIosFlipper(config, options);
-    config = withAndroidFlipper(config, options);
+    const opts = getConfiguration(options);
+    config = withIosFlipper(config, opts);
+    config = withAndroidFlipper(config, opts);
     return config;
 };
 exports.withFlipper = withFlipper;
