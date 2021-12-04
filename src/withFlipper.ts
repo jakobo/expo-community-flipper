@@ -25,7 +25,7 @@ async function getReactNativeFlipperPath(
 ): Promise<string | null> {
   const resolved = resolveFrom.silent(
     projectRoot,
-    "react-native-maps/package.json"
+    "react-native-flipper/package.json"
   );
   return resolved ? path.dirname(resolved) : null;
 }
