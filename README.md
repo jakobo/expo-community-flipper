@@ -36,7 +36,7 @@ Not sure what Flipper version you need? [Check the Official Flipper Podfile](htt
   "expo": {
     "..."
     "plugins": [
-      "expo-community-flipper", "0.123.0
+      "expo-community-flipper", "0.123.0"
     ]
   }
 }
