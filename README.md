@@ -2,8 +2,6 @@
 
 Flipper Support for Expo Apps
 
-> Tested against Expo SDK 43
-
 # Usage (Quick Guide)
 
 **1.** Install the module along with [react-native-flipper](https://www.npmjs.com/package/react-native-flipper): `yarn add expo-community-flipper react-native-flipper`
