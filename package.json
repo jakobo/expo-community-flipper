@@ -1,6 +1,6 @@
 {
   "name": "expo-community-flipper",
-  "version": "43.0.5",
+  "version": "44.0.0",
   "description": "Flipper Support for Expo Apps",
   "main": "build/withFlipper.js",
   "types": "build/withFlipper.d.ts",
@@ -47,7 +47,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@expo/config-plugins": "^4.0.11",
+    "@expo/config-plugins": "^4.0.15",
     "resolve-from": "^5.0.0"
   }
 }

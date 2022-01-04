@@ -1856,9 +1856,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:^4.0.11":
-  version: 4.0.11
-  resolution: "@expo/config-plugins@npm:4.0.11"
+"@expo/config-plugins@npm:^4.0.15":
+  version: 4.0.15
+  resolution: "@expo/config-plugins@npm:4.0.15"
   dependencies:
     "@expo/config-types": ^43.0.1
     "@expo/json-file": 8.2.34
@@ -1876,7 +1876,7 @@ __metadata:
     slash: ^3.0.0
     xcode: ^3.0.1
     xml2js: 0.4.23
-  checksum: df875607c3b80005ad9559fd4cb68697f6b92400cd54fe07d5c24c161d8d00851feda0193dd91cb40e8e52a669fb39bebec424825c003e230b43c49add465106
+  checksum: 95b07e06ef0d1473b16ed5ab9bcb24ce007e34a1982683bfa30d04befc3938f2d07fb7819be207e6a8fd422f1de583b595c5ed9ca2036ecb8126d190aa4eadad
   languageName: node
   linkType: hard
 
@@ -6028,7 +6028,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^15.0.0
     "@commitlint/config-conventional": ^15.0.0
-    "@expo/config-plugins": ^4.0.11
+    "@expo/config-plugins": ^4.0.15
     "@expo/config-types": ^43.0.1
     expo-module-scripts: ^2.0.0
     husky: ^7.0.4
