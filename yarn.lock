@@ -8079,7 +8079,6 @@ __metadata:
     "@types/react": ~17.0.21
     "@types/react-native": ~0.64.12
     expo: ~44.0.0
-    expo-community-flipper: "file:./../"
     expo-splash-screen: ~0.14.1
     expo-status-bar: ~1.2.0
     react: 17.0.1
@@ -8243,25 +8242,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-community-flipper@file:./../::locator=example%40workspace%3Aexample":
-  version: 0.0.0
-  resolution: "expo-community-flipper@file:./../#./../::hash=651502&locator=example%40workspace%3Aexample"
-  checksum: 410090ff6d0b119b82e4d29faf6c6525d3b97c9c2aabbd6d6a90c9c6856efc61d9ce790b3c8496220259781ae7027794ee6b4397ed34492da4aea9b44d379f51
-  languageName: node
-  linkType: hard
-
 "expo-community-flipper@workspace:plugin":
   version: 0.0.0-use.local
   resolution: "expo-community-flipper@workspace:plugin"
   dependencies:
-    "@commitlint/cli": ^15.0.0
-    "@commitlint/config-conventional": ^15.0.0
     "@expo/config-plugins": ^4.0.15
     "@expo/config-types": ^43.0.1
     expo-module-scripts: ^2.0.0
-    husky: ^7.0.4
-    lint-staged: ^12.1.2
-    prettier: ^2.5.0
     resolve-from: ^5.0.0
     tslint: ^6.1.3
     typescript: ^4.5.2
@@ -14898,6 +14885,12 @@ __metadata:
 "root@workspace:.":
   version: 0.0.0-use.local
   resolution: "root@workspace:."
+  dependencies:
+    "@commitlint/cli": ^15.0.0
+    "@commitlint/config-conventional": ^15.0.0
+    husky: ^7.0.4
+    lint-staged: ^12.1.2
+    prettier: ^2.5.0
   languageName: unknown
   linkType: soft
 
