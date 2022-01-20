@@ -27,7 +27,7 @@ Not sure what Flipper version you need? [Check the Official Flipper Podfile](htt
 }
 ```
 
-## Flipper with a specific version (since 43.0.5)
+## Flipper with a specific version
 
 ```json
 {
@@ -40,9 +40,9 @@ Not sure what Flipper version you need? [Check the Official Flipper Podfile](htt
 }
 ```
 
-## Flipper with all Pod dependencies included (since 43.0.1)
+## Flipper with all Pod dependencies included
 
-_note: Android uses the same version as the primary `Flipper` pod_
+_note: Android uses the same version as specified in the primary `Flipper` pod and does not require additional configuration_
 
 ```json
 {

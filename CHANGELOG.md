@@ -1,8 +1,9 @@
 # 44.x.x (Expo SDK 44)
 
-## next
+## 44.0.1
 
 - Resolved idempotency issue with merging flipper into podfiles that contain a use-flipper directive [ref](https://github.com/jakobo/expo-community-flipper/issues/3)
+- (chore) Created an example application that can be used for future triage
 
 ## 44.0.0
 
