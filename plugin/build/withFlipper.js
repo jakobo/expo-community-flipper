@@ -9,6 +9,7 @@ const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const resolve_from_1 = __importDefault(require("resolve-from"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const EXPO_FLIPPER_TAG = "expo-community-flipper";
 function getConfiguration(options) {
     let flipperVersion = null;
     let iosPods = {};
@@ -57,18 +58,28 @@ function addFlipperToPodfile(contents, options) {
     const versionString = flipperVersions.length
         ? `{${flipperVersions.join(", ")}}`
         : "";
-    const enableFlipper = (0, generateCode_1.mergeContents)({
-        tag: "flipper",
-        src: contents,
-        newSrc: `  use_flipper!(${versionString})`,
+    // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
+    // so instead, remove the content first, then attempt the insert
+    let removeResult;
+    let addResult;
+    removeResult = (0, generateCode_1.removeContents)({ src: contents, tag: EXPO_FLIPPER_TAG });
+    addResult = (0, generateCode_1.mergeContents)({
+        tag: EXPO_FLIPPER_TAG,
+        src: removeResult.contents,
+        newSrc: `
+      # Flipper support successfully added via expo config plugin
+      # https://www.npmjs.com/package/expo-community-flipper
+      use_flipper!(${versionString})
+    `,
         anchor: /# Uncomment to opt-in to using Flipper/,
-        offset: 0,
+        offset: -1,
         comment: "#",
     });
-    if (!enableFlipper.didMerge) {
+    // couldn't remove and couldn't add. Treat the operation as failed
+    if (!addResult.didMerge) {
         throw new Error("Cannot add Flipper to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command.");
     }
-    return enableFlipper.contents;
+    return addResult.contents;
 }
 exports.addFlipperToPodfile = addFlipperToPodfile;
 function withIosFlipper(config, options) {

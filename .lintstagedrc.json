@@ -1,4 +1,4 @@
 {
   "*.{json,gql,graphql,md,yaml,yml}": ["prettier --write"],
-  "plugin/**/*.{js,ts,jsx,tsx,vue}": ["tslint --fix", "prettier --write"]
+  "plugin/src/**/*.{js,ts,jsx,tsx,vue}": ["tslint --fix", "prettier --write"]
 }

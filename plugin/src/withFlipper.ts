@@ -3,11 +3,16 @@ import {
   withGradleProperties,
   ConfigPlugin,
 } from "@expo/config-plugins";
-import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
+import {
+  mergeContents,
+  removeContents,
+} from "@expo/config-plugins/build/utils/generateCode";
 import resolveFrom from "resolve-from";
 import path from "path";
 import fs from "fs";
 import { ExpoConfig } from "@expo/config-types";
+
+const EXPO_FLIPPER_TAG = "expo-community-flipper";
 
 export type withFlipperOptions = flipperOptions | string;
 
@@ -91,22 +96,34 @@ export function addFlipperToPodfile(contents: string, options: flipperConfig) {
   const versionString = flipperVersions.length
     ? `{${flipperVersions.join(", ")}}`
     : "";
-  const enableFlipper = mergeContents({
-    tag: "flipper",
-    src: contents,
-    newSrc: `  use_flipper!(${versionString})`,
+
+  // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
+  // so instead, remove the content first, then attempt the insert
+  let removeResult;
+  let addResult;
+
+  removeResult = removeContents({ src: contents, tag: EXPO_FLIPPER_TAG });
+  addResult = mergeContents({
+    tag: EXPO_FLIPPER_TAG,
+    src: removeResult.contents,
+    newSrc: `
+      # Flipper support successfully added via expo config plugin
+      # https://www.npmjs.com/package/expo-community-flipper
+      use_flipper!(${versionString})
+    `,
     anchor: /# Uncomment to opt-in to using Flipper/,
-    offset: 0,
+    offset: -1,
     comment: "#",
   });
 
-  if (!enableFlipper.didMerge) {
+  // couldn't remove and couldn't add. Treat the operation as failed
+  if (!addResult.didMerge) {
     throw new Error(
       "Cannot add Flipper to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
     );
   }
 
-  return enableFlipper.contents;
+  return addResult.contents;
 }
 
 function withIosFlipper(config: ExpoConfig, options: flipperConfig) {

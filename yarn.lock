@@ -8084,6 +8084,7 @@ __metadata:
     react: 17.0.1
     react-dom: 17.0.1
     react-native: 0.64.3
+    react-native-flipper: ^0.128.0
     react-native-web: 0.17.1
     typescript: ~4.3.5
   languageName: unknown
@@ -14212,6 +14213,16 @@ __metadata:
     jscodeshift: ^0.11.0
     nullthrows: ^1.1.1
   checksum: 545d1e416be5bd0bc27a9bc4d58719317577fbcb38f80082857142f4946ba336df3f5fa3e87137709691acd809ee46e1f52834648399cb50219a70f441d6e6a3
+  languageName: node
+  linkType: hard
+
+"react-native-flipper@npm:^0.128.0":
+  version: 0.128.4
+  resolution: "react-native-flipper@npm:0.128.4"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+    react-native: ">0.62.0"
+  checksum: 4461ed065a59f591fd7c829167947f1829cdbfbe4cca86308cb1357e55d28f79b9a61cfc3d8cac00f1290e14f84585d84936faf6ed83cbdc0dabd25e774fcda0
   languageName: node
   linkType: hard
 
