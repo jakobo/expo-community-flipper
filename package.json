@@ -28,5 +28,12 @@
     "url": "https://github.com/jakobo/expo-community-flipper/issues"
   },
   "homepage": "https://github.com/jakobo/expo-community-flipper#readme",
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.1.1",
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.0"
+  }
 }
