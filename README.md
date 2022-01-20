@@ -63,3 +63,48 @@ _note: Android uses the same version as the primary `Flipper` pod_
   }
 }
 ```
+
+# Testing
+
+An `/example` directory is built with `expo init example` for each major SDK release with a default `eas.json` file. The plugin is directly linked using expo's filepath support for config plugins. You can run `expo prebuild` in the directory to verify the plugin is modifying build files appropriately.
+
+**example eas.json**
+
+```json
+{
+  "cli": {
+    "version": ">= 0.35.0"
+  },
+  "build": {
+    "example": {
+      "releaseChannel": "default",
+      "channel": "default"
+    }
+  }
+}
+```
+
+**example app.json**
+
+```json
+{
+  "expo": {
+    "...": "... standard app.json entries ...",
+    "plugins": [
+      [
+        "./../build/withFlipper",
+        {
+          "Flipper": "0.123.0",
+          "ios": {
+            "Flipper-Folly": "2.6.10",
+            "Flipper-RSocket": "1.4.3",
+            "Flipper-DoubleConversion": "3.1.7",
+            "Flipper-Glog": "0.3.9",
+            "Flipper-PeerTalk": "0.0.4"
+          }
+        }
+      ]
+    ]
+  }
+}
+```

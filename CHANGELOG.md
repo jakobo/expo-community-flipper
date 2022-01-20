@@ -1,5 +1,9 @@
 # 44.x.x (Expo SDK 44)
 
+- `next`
+
+  - Resolved idempotency issue with merging flipper into podfiles
+
 - `44.0.0`
   - Revised version to match latest Expo SDK. No plugin API changes.
 

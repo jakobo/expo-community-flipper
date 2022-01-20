@@ -1,0 +1,11 @@
+{
+  "cli": {
+    "version": ">= 0.35.0"
+  },
+  "build": {
+    "example": {
+      "releaseChannel": "default",
+      "channel": "default"
+    }
+  }
+}

@@ -7,6 +7,14 @@
 !.yarn/sdks
 !.yarn/versions
 
+# expo build artifacts from the example app
+example/.expo-shared
+example/android
+example/babel.config.js
+example/index.js
+example/ios
+example/metro.config.js
+
 # Logs
 logs
 *.log
