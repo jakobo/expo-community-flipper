@@ -16,7 +16,9 @@
     "test": "yarn workspace expo-community-flipper expo-module test",
     "prepare": "yarn workspace expo-community-flipper expo-module prepare",
     "prepublishOnly": "yarn workspace expo-community-flipper expo-module prepublishOnly",
-    "expo-module": "yarn workspace expo-community-flipper expo-module"
+    "expo-module": "yarn workspace expo-community-flipper expo-module",
+    "husky": "husky",
+    "postinstall": "husky install"
   },
   "repository": {
     "type": "git",
