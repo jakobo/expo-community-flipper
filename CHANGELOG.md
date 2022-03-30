@@ -1,5 +1,10 @@
 # 44.x.x (Expo SDK 44)
 
+## 44.0.2
+
+- (docs) Adds table of compatible flipper versions
+- (docs) Updates published README urls
+
 ## 44.0.1
 
 - Resolved idempotency issue with merging flipper into podfiles that contain a use-flipper directive [ref](https://github.com/jakobo/expo-community-flipper/issues/3)
