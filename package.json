@@ -39,6 +39,21 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.0",
-    "release-it": "*"
+    "release-it": "*",
+    "release-it-yarn-workspaces": "^2.0.1"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-yarn-workspaces": true
+    },
+    "npm": false,
+    "git": {
+      "commitMessage": "chore: Releases version v${version}"
+    },
+    "hooks": {
+      "before:init": [
+        "yarn release:before:init || true"
+      ]
+    }
   }
 }
