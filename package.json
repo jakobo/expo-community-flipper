@@ -1,6 +1,7 @@
 {
   "private": true,
-  "name": "root",
+  "version": "44.0.1",
+  "name": "expo-community-flipper-root",
   "workspaces": [
     "example",
     "plugin"
@@ -18,7 +19,8 @@
     "prepublishOnly": "yarn workspace expo-community-flipper expo-module prepublishOnly",
     "expo-module": "yarn workspace expo-community-flipper expo-module",
     "husky": "husky",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,7 @@
     "@commitlint/config-conventional": "^15.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.0",
+    "release-it": "*"
   }
 }
