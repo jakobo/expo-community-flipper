@@ -2,8 +2,8 @@
 
 ## 44.0.2
 
-- (docs) Adds table of compatible flipper versions
-- (docs) Updates published README urls
+- (docs) Adds table of compatible flipper versions [ref](https://github.com/jakobo/expo-community-flipper/issues/6)
+- (docs) Updates published README urls [ref](https://github.com/jakobo/expo-community-flipper/issues/5)
 
 ## 44.0.1
 
