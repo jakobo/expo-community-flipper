@@ -11,13 +11,6 @@
   },
   "description": "Flipper Support for Expo Apps",
   "scripts": {
-    "build": "yarn workspace expo-community-flipper expo-module build",
-    "clean": "yarn workspace expo-community-flipper expo-module clean",
-    "lint": "yarn workspace expo-community-flipper tslint --project ./tsconfig.json",
-    "test": "yarn workspace expo-community-flipper expo-module test",
-    "prepare": "yarn workspace expo-community-flipper expo-module prepare",
-    "prepublishOnly": "yarn workspace expo-community-flipper expo-module prepublishOnly",
-    "expo-module": "yarn workspace expo-community-flipper expo-module",
     "husky": "husky",
     "postinstall": "husky install",
     "release": "release-it"
