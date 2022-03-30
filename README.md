@@ -64,6 +64,15 @@ _note: Android uses the same version as specified in the primary `Flipper` pod a
 }
 ```
 
+# Verified Versions
+
+The following Flipper versions were verified against EAS. If you have another working combination, open a ticket or PR. Thank you!
+
+| Expo SDK Version | Flipper |
+| :--------------- | :------ |
+| 34               | 0.123.0 |
+| 33               | 0.123.0 |
+
 # Testing
 
 An `/example` directory is built with `expo init example` for each major SDK release with a default `eas.json` file. The plugin is directly linked using expo's filepath support for config plugins. You can run `expo prebuild` in the directory to verify the plugin is modifying build files appropriately.
