@@ -17,5 +17,5 @@ The following Flipper versions were verified against EAS. If you have another wo
 
 | Expo SDK Version | Flipper |
 | :--------------- | :------ |
-| 34               | 0.123.0 |
-| 33               | 0.123.0 |
+| 43               | 0.123.0 |
+| 44               | 0.123.0 |
