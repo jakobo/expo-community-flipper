@@ -64,14 +64,21 @@ _note: Android uses the same version as specified in the primary `Flipper` pod a
 }
 ```
 
+# Windows Users + Hermes
+
+> As of right now, using Windows with the Hermes engine requires you to run your app inside of a WSL environment. [The tracked issue is here](https://github.com/jakobo/expo-community-flipper/issues/4) and if you have a `Podfile`, please let me know. It's likely an upstream issue, but we need a Podfile to confirm.
+
 # Verified Versions
 
 The following Flipper versions were verified against EAS. If you have another working combination, open a ticket or PR. Thank you!
 
-| Expo SDK Version | Flipper |
-| :--------------- | :------ |
-| 34               | 0.123.0 |
-| 33               | 0.123.0 |
+| Expo SDK Version | Flipper                      |
+| :--------------- | :--------------------------- |
+| 45               | 0.123.0, builtin (rn 0.68.1) |
+| 44               | 0.123.0                      |
+| 43               | 0.123.0                      |
+
+(note, we follow expo's policy for old SDKs, and will be dropping support for SDK 43 when Expo 47 is released )
 
 # Testing
 

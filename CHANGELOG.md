@@ -1,3 +1,7 @@
+# 45.x.x (Expo SDK 45)
+
+- Revised version to match latest Expo SDK. No plugin API changes.
+
 # 44.x.x (Expo SDK 44)
 
 ## 44.0.2
