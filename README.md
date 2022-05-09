@@ -78,7 +78,7 @@ The following Flipper versions were verified against EAS. If you have another wo
 | 44               | 0.123.0                      |
 | 43               | 0.123.0                      |
 
-(note, we follow expo's policy for old SDKs, and will be dropping support for SDK 43 when Expo 47 is released )
+(note, we follow expo's policy for the deprecation of old SDKs)
 
 # Testing
 
