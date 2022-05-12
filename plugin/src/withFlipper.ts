@@ -13,6 +13,7 @@ import fs from "fs";
 import { ExpoConfig } from "@expo/config-types";
 
 const EXPO_FLIPPER_TAG = "expo-community-flipper";
+const EXPO_FLIPPER_TAG_POST_INSTALL = "expo-community-flipper-post-install";
 
 export type withFlipperOptions = flipperOptions | string;
 
@@ -102,14 +103,23 @@ export function addFlipperToPodfile(contents: string, options: flipperConfig) {
   let removeResult;
   let addResult;
 
+  // remove previous instances for idempotence
   removeResult = removeContents({ src: contents, tag: EXPO_FLIPPER_TAG });
+  removeResult = removeContents({
+    src: removeResult.contents,
+    tag: EXPO_FLIPPER_TAG_POST_INSTALL,
+  });
+
+  // insert use_flipper statement
   addResult = mergeContents({
     tag: EXPO_FLIPPER_TAG,
     src: removeResult.contents,
     newSrc: `
       # Flipper support successfully added via expo config plugin
       # https://www.npmjs.com/package/expo-community-flipper
-      use_flipper!(${versionString})
+      if !ENV['FLIPPER_DISABLE']
+        use_flipper!(${versionString})
+      end
     `,
     anchor: /# Uncomment to opt-in to using Flipper/,
     offset: -1,
@@ -119,7 +129,28 @@ export function addFlipperToPodfile(contents: string, options: flipperConfig) {
   // couldn't remove and couldn't add. Treat the operation as failed
   if (!addResult.didMerge) {
     throw new Error(
-      "Cannot add Flipper to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
+      "Cannot add use_flipper to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
+    );
+  }
+
+  // insert post_install statement inside the post_install loop
+  addResult = mergeContents({
+    tag: EXPO_FLIPPER_TAG,
+    src: addResult.contents,
+    newSrc: `
+      # Flipper support successfully added via expo config plugin
+      # https://www.npmjs.com/package/expo-community-flipper
+      flipper_post_install(installer)
+    `,
+    anchor: /post_install do \|installer\|/,
+    offset: 1,
+    comment: "#",
+  });
+
+  // couldn't remove and couldn't add. Treat the operation as failed
+  if (!addResult.didMerge) {
+    throw new Error(
+      "Cannot add flipper_post_install to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
     );
   }
 
