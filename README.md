@@ -124,3 +124,8 @@ An `/example` directory is built with `expo init example` for each major SDK rel
   }
 }
 ```
+
+# References
+
+- This code is based on the [Flipper Getting Started Guide](https://fbflipper.com/docs/getting-started/react-native/)
+- [Expo Config Plugins](https://docs.expo.dev/guides/config-plugins/)
