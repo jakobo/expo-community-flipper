@@ -135,7 +135,7 @@ export function addFlipperToPodfile(contents: string, options: flipperConfig) {
 
   // insert post_install statement inside the post_install loop
   addResult = mergeContents({
-    tag: EXPO_FLIPPER_TAG,
+    tag: EXPO_FLIPPER_TAG_POST_INSTALL,
     src: addResult.contents,
     newSrc: `
       # Flipper support successfully added via expo config plugin
