@@ -140,7 +140,9 @@ export function addFlipperToPodfile(contents: string, options: flipperConfig) {
     newSrc: `
       # Flipper support successfully added via expo config plugin
       # https://www.npmjs.com/package/expo-community-flipper
-      flipper_post_install(installer)
+      if !ENV['FLIPPER_DISABLE']
+        flipper_post_install(installer)
+      end
     `,
     anchor: /post_install do \|installer\|/,
     offset: 1,
