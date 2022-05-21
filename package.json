@@ -13,7 +13,7 @@
   "scripts": {
     "husky": "husky",
     "postinstall": "husky install",
-    "release": "release-it"
+    "rel": "release-it"
   },
   "repository": {
     "type": "git",
