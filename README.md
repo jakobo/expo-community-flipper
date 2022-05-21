@@ -14,6 +14,10 @@ Not sure what Flipper version you need? [Check the Official Flipper Podfile](htt
 
 # Configuration
 
+## Disabling Flipper in CI (>= 45.1.0)
+
+To disable Flipper in CI builds, set the env value of `FLIPPER_DISABLE` to `1`. We specifically do not use the `CI` env value, as EAS identifies itself as a CI environment which would remove the ability to generate a development client containing flipper. Instead, the ENV value should be provided for your production builds.
+
 ## Flipper (React Native Default Version)
 
 ```json
