@@ -82,7 +82,7 @@ The following Flipper versions were verified against EAS. If you have another wo
 | 44               | 0.123.0                      |
 | 43               | 0.123.0                      |
 
-(note, we follow expo's policy for the deprecation of old SDKs)
+(note, we follow [expo's policy for the deprecation of old SDKs](https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/))
 
 # Testing
 
