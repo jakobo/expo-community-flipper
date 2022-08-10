@@ -17,6 +17,8 @@ export declare type flipperConfig = {
     };
     android: string | null;
 };
+/** Adds the flipper lines to the podfile */
 export declare function addFlipperToPodfile(contents: string, options: flipperConfig): string;
+/** Enable flipper on this application */
 export declare const withFlipper: ConfigPlugin<withFlipperOptions>;
 export default withFlipper;
