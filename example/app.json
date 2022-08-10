@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "example",
-    "slug": "example",
-    "version": "1.0.0",
+    "name": "expo-community-flipper-example",
+    "slug": "expo-config-flipper",
+    "owner": "jakobo",
+    "version": "46.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,37 +14,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jakobo.example"
+      "bundleIdentifier": "com.codedrift.gh-jakobo.ecf"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.jakobo.example"
+      "package": "com.codedrift.gh_jakobo.ecf"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "./../plugin/build/withFlipper.js",
-        {
-          "Flipper": "0.123.0",
-          "ios": {
-            "Flipper-Folly": "2.6.10",
-            "Flipper-RSocket": "1.4.3",
-            "Flipper-DoubleConversion": "3.1.7",
-            "Flipper-Glog": "0.3.9",
-            "Flipper-PeerTalk": "0.0.4"
-          }
-        }
-      ]
-    ]
+    "plugins": [["./../plugin/build/withFlipper.js", "0.158.0"]]
   }
 }

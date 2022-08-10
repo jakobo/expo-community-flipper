@@ -1,3 +1,6 @@
+# ignore yarn.lock in our example
+yarn.lock
+
 node_modules/
 .expo/
 dist/
