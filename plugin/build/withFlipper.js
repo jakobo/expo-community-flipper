@@ -9,8 +9,14 @@ const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const resolve_from_1 = __importDefault(require("resolve-from"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const semver_1 = __importDefault(require("semver"));
 const EXPO_FLIPPER_TAG = "expo-community-flipper";
 const EXPO_FLIPPER_TAG_POST_INSTALL = "expo-community-flipper-post-install";
+const FLIPPER_AD_IOS_SUPPORT = `
+#import <React/RCTAppSetupUtils.h>
+`;
+const SUPPORTED_SDK_VERSIONS = "^46.0.0";
+/** Load the configuration */
 function getConfiguration(options) {
     let flipperVersion = null;
     let iosPods = {};
@@ -33,14 +39,17 @@ function getConfiguration(options) {
         android: flipperVersion,
     };
 }
+/** Gets the native flipper path */
 async function getReactNativeFlipperPath(projectRoot) {
     const resolved = resolve_from_1.default.silent(projectRoot, "react-native-flipper/package.json");
     return resolved ? path_1.default.dirname(resolved) : null;
 }
+/** Determines if flipper is linked. For now, a no-op until autolink detection exists */
 async function isFlipperLinked() {
     // TODO: Autolink detection when supported
     return true;
 }
+/** Adds the flipper lines to the podfile */
 function addFlipperToPodfile(contents, options) {
     // all flipper pods. Flipper must go first
     const flipperVersions = [];
@@ -110,8 +119,18 @@ function addFlipperToPodfile(contents, options) {
     return addResult.contents;
 }
 exports.addFlipperToPodfile = addFlipperToPodfile;
+/** Modifies the AppDelegate.mm file, adding the Flipper init code */
+function modifyAppDelegate(appDelegate) {
+    if (!appDelegate.includes(FLIPPER_AD_IOS_SUPPORT.trim())) {
+        const lines = appDelegate.split("\n");
+        lines.splice(1, 0, FLIPPER_AD_IOS_SUPPORT);
+        appDelegate = lines.join("\n");
+    }
+    return appDelegate;
+}
+/** Adds iOS Flipper configuration steps to the expo config */
 function withIosFlipper(config, options) {
-    return (0, config_plugins_1.withDangerousMod)(config, [
+    config = (0, config_plugins_1.withDangerousMod)(config, [
         "ios",
         async (c) => {
             const filePath = path_1.default.join(c.modRequest.platformProjectRoot, "Podfile");
@@ -126,7 +145,22 @@ function withIosFlipper(config, options) {
             return c;
         },
     ]);
+    config = (0, config_plugins_1.withAppDelegate)(config, async (ad) => {
+        var _a;
+        const validSDK = semver_1.default.satisfies((_a = config.sdkVersion) !== null && _a !== void 0 ? _a : "0.0.1", SUPPORTED_SDK_VERSIONS);
+        // SDK 46 uses Objective-C++ and should never need a swift file configuration
+        if (!validSDK) {
+            config_plugins_1.WarningAggregator.addWarningIOS("expo-community-flipper", `This plugin requires an Expo SDK matching ${SUPPORTED_SDK_VERSIONS}. You are using ${config.sdkVersion}`);
+            return ad;
+        }
+        if (ad.modResults.language === "objc") {
+            ad.modResults.contents = modifyAppDelegate(ad.modResults.contents);
+        }
+        return ad;
+    });
+    return config;
 }
+/** Adds Android Flipper configuration steps to the expo config */
 function withAndroidFlipper(config, options) {
     const flipperKey = "FLIPPER_VERSION";
     return (0, config_plugins_1.withGradleProperties)(config, (c) => {
@@ -142,6 +176,7 @@ function withAndroidFlipper(config, options) {
         return c;
     });
 }
+/** Enable flipper on this application */
 const withFlipper = (config, options) => {
     const opts = getConfiguration(options);
     config = withIosFlipper(config, opts);
