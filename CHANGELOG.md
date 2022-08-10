@@ -1,6 +1,12 @@
+# 46.x.x (Expo SDK 46)
+
+#### 46.0.0
+
+- Revised version to match latest Expo SDK. No plugin API changes.
+
 # 45.x.x (Expo SDK 45)
 
-#### next (45.1.0)
+#### 45.1.0
 
 - Adds the ability to disable flipper via an ENV variable in EAS / Expo builds `FLIPPER_DISABLE`
 - Adds a post install step required by Flipper for native modules
