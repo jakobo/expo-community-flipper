@@ -2,6 +2,19 @@
 
 # 46.x.x (Expo SDK 46)
 
+### 46.0.1
+
+**Migration** If you were using individual pod specifications (folly, etc), you can remove all of that now. The Flipper team recommends using only the Flipper version, relying on the pod and maven to pull down the necessary dependencies.
+
+##### 🛠️ Fixes
+
+- Fixes a breaking issue with Podfile generation introduced in react-native 0.69.2 [ref](https://github.com/jakobo/expo-community-flipper/pull/20)
+  - Removes the legacy `use_flipper` declaration
+  - Removes the `post_install` flipper code
+  - Removes the `AppDelegate` code as the RCTAppSetupUtils already exist and this was redundant [ref](https://github.com/expo/expo/blob/d6b89ab435b534bb9bb560d0c1bb15bb0abdfcfa/templates/expo-template-bare-minimum/ios/HelloWorld/AppDelegate.mm#L9)
+- Removes individual pod configs as those are no longer encouraged by the FB Flipper Team
+- Removed old SDK tests
+
 ### 46.0.0
 
 ##### 💥 BREAKING CHANGES
