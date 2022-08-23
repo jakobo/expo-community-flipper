@@ -24,7 +24,6 @@ exports.withFlipperIOS = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const constants_1 = require("./constants");
-const util_1 = require("./util");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 /** Create a namepaced tag */
@@ -55,8 +54,7 @@ function withEnvProductionPodfile(config) {
             const contents = fs_1.default.readFileSync(filePath, "utf-8");
             // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
             // so instead, remove the content first, then attempt the insert
-            let result;
-            result = removeTaggedContent(contents, "isprod");
+            let result = removeTaggedContent(contents, "isprod");
             const preexisting = constants_1.IOS_HAS_PRODUCTION_ARG.test(result.contents);
             if (!preexisting) {
                 result = (0, generateCode_1.mergeContents)({
@@ -87,15 +85,9 @@ function withFlipperPodfile(config, cfg) {
         async (c) => {
             const filePath = path_1.default.join(c.modRequest.platformProjectRoot, "Podfile");
             const contents = fs_1.default.readFileSync(filePath, "utf-8");
-            const flipperPath = (0, util_1.getReactNativeFlipperPath)(c.modRequest.projectRoot);
-            const linked = isFlipperLinked();
-            if (!flipperPath || !linked) {
-                return c;
-            }
             // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
             // so instead, remove the content first, then attempt the insert
-            let result;
-            result = removeTaggedContent(contents, "urn");
+            let result = removeTaggedContent(contents, "urn");
             const preexisting = constants_1.IOS_HAS_FLIPPER_ARG.test(result.contents);
             if (!preexisting) {
                 result = (0, generateCode_1.mergeContents)({

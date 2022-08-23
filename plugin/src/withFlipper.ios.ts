@@ -29,7 +29,6 @@ import {
   IOS_URN_ARG_ANCHOR,
 } from "./constants";
 import { FlipperConfig } from "./types";
-import { getReactNativeFlipperPath } from "./util";
 import path from "path";
 import fs from "fs";
 
@@ -66,9 +65,7 @@ function withEnvProductionPodfile(config: ExpoConfig) {
 
       // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
       // so instead, remove the content first, then attempt the insert
-      let result;
-
-      result = removeTaggedContent(contents, "isprod");
+      let result = removeTaggedContent(contents, "isprod");
 
       const preexisting = IOS_HAS_PRODUCTION_ARG.test(result.contents);
 
@@ -108,18 +105,10 @@ function withFlipperPodfile(config: ExpoConfig, cfg: FlipperConfig) {
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
-      const flipperPath = getReactNativeFlipperPath(c.modRequest.projectRoot);
-      const linked = isFlipperLinked();
-
-      if (!flipperPath || !linked) {
-        return c;
-      }
 
       // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
       // so instead, remove the content first, then attempt the insert
-      let result;
-
-      result = removeTaggedContent(contents, "urn");
+      let result = removeTaggedContent(contents, "urn");
 
       const preexisting = IOS_HAS_FLIPPER_ARG.test(result.contents);
 
