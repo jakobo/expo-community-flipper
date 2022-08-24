@@ -14,7 +14,9 @@ If you don't specify anything, `expo-community-flipper` will default to the vers
 
 ## Disabling Flipper in CI (>= 45.1.0)
 
-In some scenarios such as CI builds, it may be desirable to disable Flipper to improve build times. `expo-community-flipper` checks `ENV['FLIPPER_DISABLE'] == "1"` to determine if Flipper is disabled. This ENV value can be set in your EAS Secrets, your `app.json`, or your CI environment variables configuration.
+In some scenarios such as CI builds, it may be desirable to disable Flipper to improve build times. `expo-community-flipper` checks `ENV['FLIPPER_DISABLE'] == "1"` to determine if Flipper is disabled. This ENV value can be set in your EAS Secrets, your `app.json`, `app.config.js`, `eas.json` or your CI environment variables configuration.
+
+Please note: [A secret created on the Expo website or with eas secret:create will take precedence over an environment variable of the same name that is set through the env field in eas.json.](https://docs.expo.dev/build-reference/variables/)
 
 In production, Flipper is automatically disabled by the react-native framework.
 
