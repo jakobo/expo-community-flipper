@@ -78,6 +78,7 @@ The following Flipper versions were verified against EAS. If you have another wo
 
 | Expo SDK Version | Flipper                      |
 | :--------------- | :--------------------------- |
+| 46               | 0.161.0, builtin (rn 0.69.4)
 | 45               | 0.123.0, builtin (rn 0.68.1) |
 | 44               | 0.123.0                      |
 | 43               | 0.123.0                      |
