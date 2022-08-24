@@ -29,6 +29,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [["./../plugin/build/withFlipper.js", "0.158.0"]]
+    "plugins": ["./../plugin/build/withFlipper.js"]
   }
 }
