@@ -34,17 +34,12 @@ const createFlipperArgument = (version) => {
         ? `FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '${version}' }),`
         : `FlipperConfiguration.enabled,`;
     const inactive = `FlipperConfiguration.disabled`;
-    return `:flipper_configuration => ENV['FLIPPER_DISABLE'] ? ${inactive} : ${active}`;
+    return `:flipper_configuration => ENV['FLIPPER_DISABLE'] == "1" ? ${inactive} : ${active}`;
 };
 /** Removes content by its tag */
 const removeTaggedContent = (contents, ns) => {
     return (0, generateCode_1.removeContents)({ src: contents, tag: tag(ns) });
 };
-/** Determines if flipper is linked. For now, a no-op until autolink detection exists */
-async function isFlipperLinked() {
-    // TODO: Autolink detection when supported
-    return true;
-}
 /** Add the production arg to the use_react_native block */
 function withEnvProductionPodfile(config) {
     config = (0, config_plugins_1.withDangerousMod)(config, [
