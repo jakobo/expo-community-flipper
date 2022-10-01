@@ -59,6 +59,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "nkalinov",
+      "name": "Nikola Kalinov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2777825?v=4",
+      "profile": "https://github.com/nkalinov",
+      "contributions": [
+        "bug",
+        "plugin"
+      ]
     }
   ],
   "contributorsPerLine": 7,
