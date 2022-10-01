@@ -2,6 +2,8 @@
 
 Flipper Support for Expo Apps
 
+> ⚠️ Please see [this issue](https://github.com/jakobo/expo-community-flipper/issues/27) about known compatibility issues with other plugins.
+
 # Usage (Quick Guide)
 
 **1.** Install this module: `yarn add expo-community-flipper`
@@ -12,15 +14,27 @@ If you don't specify anything, `expo-community-flipper` will default to the vers
 
 # Configuration
 
-## Disabling Flipper in CI (>= 45.1.0)
+```ts
+type FlipperOptions =
+  | undefined // take the default options for the entire plugin
+  | string // sets <root>.version and takes defaults for all nested options
+  | {
+      version?: string; // sets the flipper version to build against (defaults to undefined, uses react-native bundled version)
+      ios?:
+        | boolean // sets <root>.ios.enabled and takes defaults for all nested options
+        | {
+            enabled: boolean; // enable flipper for iOS (default true)
+            stripUseFrameworks?: boolean; // strip instances of use_frameworks from the Podfile (default false)
+          };
+      android?:
+        | boolean // sets <root>.ios.enabled and takes defaults for all nested options
+        | {
+            enabled: boolean; // enable flipper for Android (default true)
+          };
+    };
+```
 
-In some scenarios such as CI builds, it may be desirable to disable Flipper to improve build times. `expo-community-flipper` checks `ENV['FLIPPER_DISABLE'] == "1"` to determine if Flipper is disabled. This ENV value can be set in your EAS Secrets, your `app.json`, `app.config.js`, `eas.json` or your CI environment variables configuration.
-
-Please note: [A secret created on the Expo website or with eas secret:create will take precedence over an environment variable of the same name that is set through the env field in eas.json.](https://docs.expo.dev/build-reference/variables/)
-
-In production, Flipper is automatically disabled by the react-native framework.
-
-## Flipper (React Native Default Version)
+Configuration of this plugin is done in `app.json`. all configurations are optional with defaults designed to minimize the chances of your build breaking.
 
 ```json
 {
@@ -31,20 +45,24 @@ In production, Flipper is automatically disabled by the react-native framework.
     ]
   }
 }
-```
 
-## Flipper with a specific version
+// or configured (See FlipperOptions above):
 
-```json
 {
   "expo": {
     "..."
     "plugins": [
-      ["expo-community-flipper", "0.123.0"]
+      ["expo-community-flipper", FlipperOptions]
     ]
   }
 }
 ```
+
+## Disabling Flipper in CI (>= 45.1.0)
+
+In some scenarios such as CI builds, it may be desirable to disable Flipper to improve build times. `expo-community-flipper` checks `ENV['FLIPPER_DISABLE'] == "1"` to determine if Flipper is disabled. This ENV value can be set in your EAS Secrets, your `app.json`, or your CI environment variables configuration.
+
+In production, Flipper is automatically disabled by the react-native framework.
 
 # Windows Users + Hermes
 
