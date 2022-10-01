@@ -16,7 +16,7 @@ export type FlipperConfig = {
 export type WithFlipperOptions = FlipperOptions | string;
 
 type FlipperOptions = {
-  version: string;
+  version?: string;
   ios?: boolean | iOSFlipperConfig;
   android?: boolean | AndroidFlipperConfig;
 };
