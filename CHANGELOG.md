@@ -2,6 +2,17 @@
 
 # 46.x.x (Expo SDK 46)
 
+### 46.0.2
+
+##### 🛠️ Fixes
+
+- Added the ability to explicitly enable/disable flipper on a per platform level [ref](https://github.com/jakobo/expo-community-flipper/commit/8c5d5f747862f7bd86093bd72d561d6bee0aa199)
+- Added the ability to strip `use_frameworks` on iOS [ref](https://github.com/jakobo/expo-community-flipper/commit/8c5d5f747862f7bd86093bd72d561d6bee0aa199)
+
+##### 🧹 Chores
+
+- Adds all-contributors. Thank you to every single person who's helped make expo-community-flipper awesome ❤️
+
 ### 46.0.1
 
 **Migration** If you were using individual pod specifications (folly, etc), you can remove all of that now. The Flipper team recommends using only the Flipper version, relying on the pod and maven to pull down the necessary dependencies.
