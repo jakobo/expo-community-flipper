@@ -29,6 +29,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["./../plugin/build/withFlipper.js"]
+    "plugins": [
+      [
+        "./../plugin/build/withFlipper.js",
+        {
+          "ios": {
+            "enabled": true,
+            "stripUseFrameworks": true
+          },
+          "android": true
+        }
+      ]
+    ]
   }
 }

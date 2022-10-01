@@ -1,17 +1,36 @@
 import { FlipperConfig, WithFlipperOptions } from "./types";
 
 export function getConfiguration(options?: WithFlipperOptions): FlipperConfig {
-  let flipperVersion: string | undefined;
-
-  if (typeof options === "string") {
-    flipperVersion = options;
-  } else if (typeof options === "object") {
-    if (options.version) {
-      flipperVersion = options.version;
-    }
-  }
+  const base =
+    typeof options === "string"
+      ? { version: options }
+      : options ?? {
+          version: undefined,
+          ios: true,
+          android: true,
+        };
 
   return {
-    version: flipperVersion,
+    version: base.version,
+    ios:
+      typeof base.ios !== "undefined" && typeof base.ios !== "boolean"
+        ? {
+            enabled: base.ios.enabled,
+            // disabled by default
+            stripUseFrameworks:
+              base.ios.stripUseFrameworks === false ? false : true,
+          }
+        : {
+            enabled: base.ios ?? true,
+            stripUseFrameworks: false,
+          },
+    android:
+      typeof base.android !== "undefined" && typeof base.android !== "boolean"
+        ? {
+            enabled: base.android.enabled,
+          }
+        : {
+            enabled: base.android ?? true,
+          },
   };
 }

@@ -10,3 +10,5 @@ export declare const IOS_URN_ARG_ANCHOR: RegExp;
 export declare const IOS_HAS_PRODUCTION_ARG: RegExp;
 /** In a Podfile, this regex tells us the :flipper_configuration arg is already there */
 export declare const IOS_HAS_FLIPPER_ARG: RegExp;
+/** In a Podfile, this regex detects if use_frameworks is enabled. It also serves as our anchor */
+export declare const IOS_USE_FRAMEWORKS_STATEMENT: RegExp;

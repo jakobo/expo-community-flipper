@@ -10,8 +10,15 @@ export const withFlipper: ConfigPlugin<WithFlipperOptions> = (
   options
 ) => {
   const opts = getConfiguration(options);
-  config = withFlipperIOS(config, opts);
-  config = withFlipperAndroid(config, opts);
+
+  if (opts.ios.enabled) {
+    config = withFlipperIOS(config, opts);
+  }
+
+  if (opts.android.enabled) {
+    config = withFlipperAndroid(config, opts);
+  }
+
   return config;
 };
 
