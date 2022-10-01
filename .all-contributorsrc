@@ -14,6 +14,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gregfenton",
+      "name": "gregfenton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4407559?v=4",
+      "profile": "https://twitter.com/gregfenton",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
