@@ -41,6 +41,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Slapbox",
+      "name": "Slapbox",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6835891?v=4",
+      "profile": "https://recollectr.io",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
