@@ -115,7 +115,7 @@ An `/example` directory is built with `expo init example` for each major SDK rel
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -129,6 +129,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://codedrift.com"><img src="https://avatars.githubusercontent.com/u/1795?v=4?s=100" width="100px;" alt="Jakob Heuser"/><br /><sub><b>Jakob Heuser</b></sub></a><br /><a href="https://github.com/jakobo/expo-community-flipper/commits?author=jakobo" title="Code">💻</a></td>
       <td align="center"><a href="https://twitter.com/gregfenton"><img src="https://avatars.githubusercontent.com/u/4407559?v=4?s=100" width="100px;" alt="gregfenton"/><br /><sub><b>gregfenton</b></sub></a><br /><a href="https://github.com/jakobo/expo-community-flipper/commits?author=gregfenton" title="Documentation">📖</a></td>
       <td align="center"><a href="http://aronberezkin.com"><img src="https://avatars.githubusercontent.com/u/32416348?v=4?s=100" width="100px;" alt="AronBe"/><br /><sub><b>AronBe</b></sub></a><br /><a href="https://github.com/jakobo/expo-community-flipper/commits?author=AronBe" title="Documentation">📖</a></td>
+      <td align="center"><a href="http://raymondlam.midori.io"><img src="https://avatars.githubusercontent.com/u/1154044?v=4?s=100" width="100px;" alt="rlam3"/><br /><sub><b>rlam3</b></sub></a><br /><a href="https://github.com/jakobo/expo-community-flipper/commits?author=rlam3" title="Documentation">📖</a></td>
     </tr>
   </tbody>
   <tfoot>
