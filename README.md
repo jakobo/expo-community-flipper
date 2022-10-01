@@ -1,7 +1,4 @@
 # expo-community-flipper
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Flipper Support for Expo Apps
 
@@ -116,6 +113,10 @@ An `/example` directory is built with `expo init example` for each major SDK rel
 - [React Native Community's Typescript Template](https://github.com/react-native-community/react-native-template-typescript/tree/main/template)
 
 ## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
