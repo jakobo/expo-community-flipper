@@ -27,7 +27,7 @@ type FlipperOptions =
             stripUseFrameworks?: boolean; // strip instances of use_frameworks from the Podfile (default false)
           };
       android?:
-        | boolean // sets <root>.ios.enabled and takes defaults for all nested options
+        | boolean // sets <root>.android.enabled and takes defaults for all nested options
         | {
             enabled: boolean; // enable flipper for Android (default true)
           };
