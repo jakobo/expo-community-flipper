@@ -68,6 +68,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "Kudo",
+      "name": "Kudo Chien",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46429?v=4",
+      "profile": "https://twitter.com/kudochien",
+      "contributions": [
+        "doc",
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7,
