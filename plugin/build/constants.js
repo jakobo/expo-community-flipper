@@ -12,6 +12,6 @@ exports.IOS_URN_ARG_ANCHOR = /:fabric_enabled => flags\[:fabric_enabled\],/;
 /** In a Podfile, this regex tells us the :production arg is already there */
 exports.IOS_HAS_PRODUCTION_ARG = /use_react_native!\([\s\S]*:production\s+=>/gm;
 /** In a Podfile, this regex tells us the :flipper_configuration arg is already there */
-exports.IOS_HAS_FLIPPER_ARG = /use_react_native!\([\s\S]*:flipper_configuration\s+=>/gm;
+exports.IOS_HAS_FLIPPER_ARG = /use_react_native!\([\s\S]*^\s*:flipper_configuration\s+=>/gm;
 /** In a Podfile, this regex detects if use_frameworks is enabled. It also serves as our anchor */
 exports.IOS_USE_FRAMEWORKS_STATEMENT = /[\s*]use_frameworks!/gm;

@@ -20,7 +20,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.withFlipperIOS = void 0;
+exports.updatePodfileContents = exports.withFlipperIOS = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const constants_1 = require("./constants");
@@ -97,29 +97,8 @@ function withFlipperPodfile(config, cfg) {
         async (c) => {
             const filePath = path_1.default.join(c.modRequest.platformProjectRoot, "Podfile");
             const contents = fs_1.default.readFileSync(filePath, "utf-8");
-            // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
-            // so instead, remove the content first, then attempt the insert
-            const results = [];
-            results.push(removeTaggedContent(contents, "urn"));
-            const preexisting = constants_1.IOS_HAS_FLIPPER_ARG.test(last(results).contents);
-            if (!preexisting) {
-                results.push((0, generateCode_1.mergeContents)({
-                    tag: tag("urn"),
-                    src: last(results).contents,
-                    newSrc: indent([
-                        "# Flipper arguments generated from app.json",
-                        createFlipperArgument(cfg.version),
-                    ], 4),
-                    anchor: constants_1.IOS_URN_ARG_ANCHOR,
-                    offset: 1,
-                    comment: "#",
-                }));
-            }
-            // couldn't remove and couldn't add. Treat the operation as failed
-            if (!last(results).didMerge) {
-                throw new Error("Cannot add flipper arguments to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command.");
-            }
-            fs_1.default.writeFileSync(filePath, last(results).contents);
+            const updatedContents = updatePodfileContents(contents, cfg);
+            fs_1.default.writeFileSync(filePath, updatedContents);
             return c;
         },
     ]);
@@ -186,3 +165,29 @@ function withFlipperIOS(config, cfg) {
     return config;
 }
 exports.withFlipperIOS = withFlipperIOS;
+function updatePodfileContents(contents, cfg) {
+    // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
+    // so instead, remove the content first, then attempt the insert
+    const results = [];
+    results.push(removeTaggedContent(contents, "urn"));
+    const preexisting = constants_1.IOS_HAS_FLIPPER_ARG.test(last(results).contents);
+    if (!preexisting) {
+        results.push((0, generateCode_1.mergeContents)({
+            tag: tag("urn"),
+            src: last(results).contents,
+            newSrc: indent([
+                "# Flipper arguments generated from app.json",
+                createFlipperArgument(cfg.version),
+            ], 4),
+            anchor: constants_1.IOS_URN_ARG_ANCHOR,
+            offset: 1,
+            comment: "#",
+        }));
+    }
+    // couldn't remove and couldn't add. Treat the operation as failed
+    if (!last(results).didMerge) {
+        throw new Error("Cannot add flipper arguments to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command.");
+    }
+    return last(results).contents;
+}
+exports.updatePodfileContents = updatePodfileContents;
