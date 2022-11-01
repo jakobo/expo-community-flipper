@@ -10,7 +10,7 @@
     "clean": "expo-module clean",
     "lint": "tslint --project ./tsconfig.json",
     "test": "expo-module test",
-    "release:before:init": "expo-module prepare; expo-module prepublishOnly",
+    "release:before:init": "expo-module test; expo-module prepare; expo-module prepublishOnly",
     "expo-module": "expo-module"
   },
   "repository": {
