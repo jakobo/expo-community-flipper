@@ -21,7 +21,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updatePodfileContents = exports.withFlipperIOS = void 0;
-const config_plugins_1 = require("@expo/config-plugins");
+const config_plugins_1 = require("expo/config-plugins");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const constants_1 = require("./constants");
 const path_1 = __importDefault(require("path"));

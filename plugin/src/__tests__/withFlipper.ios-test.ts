@@ -24,10 +24,10 @@ describe(updatePodfileContents, () => {
           :fabric_enabled => flags[:fabric_enabled],
       # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-0d6c393415c155009dbe3271effb1563fab482d2
           # Flipper arguments generated from app.json
-          :flipper_configuration => ENV['FLIPPER_DISABLE'] == \\"1\\" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled([\\"Debug\\"], { 'Flipper' => '0.999.0' }),
+          :flipper_configuration => ENV['FLIPPER_DISABLE'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.999.0' }),
       # @generated end expo-community-flipper-urn
           # An absolute path to your application root.
-          :app_path => \\"#{Dir.pwd}/..\\"
+          :app_path => "#{Dir.pwd}/.."
         )"
     `);
   });
@@ -59,10 +59,10 @@ describe(updatePodfileContents, () => {
           :fabric_enabled => flags[:fabric_enabled],
       # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-0d6c393415c155009dbe3271effb1563fab482d2
           # Flipper arguments generated from app.json
-          :flipper_configuration => ENV['FLIPPER_DISABLE'] == \\"1\\" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled([\\"Debug\\"], { 'Flipper' => '0.999.0' }),
+          :flipper_configuration => ENV['FLIPPER_DISABLE'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.999.0' }),
       # @generated end expo-community-flipper-urn
           # An absolute path to your application root.
-          :app_path => \\"#{Pod::Config.instance.installation_root}/..\\",
+          :app_path => "#{Pod::Config.instance.installation_root}/..",
           #
           # Uncomment to opt-in to using Flipper
           # Note that if you have use_frameworks! enabled, Flipper will not work

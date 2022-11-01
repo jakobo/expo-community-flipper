@@ -16,13 +16,12 @@ withProductionEnv
   :production => production,
 */
 
-import { withDangerousMod } from "@expo/config-plugins";
+import { withDangerousMod } from "expo/config-plugins";
 import {
   mergeContents,
-  MergeResults,
   removeContents,
+  type MergeResults,
 } from "@expo/config-plugins/build/utils/generateCode";
-import { ExpoConfig } from "@expo/config-types";
 import {
   EXPO_FLIPPER_TAG,
   IOS_HAS_FLIPPER_ARG,
@@ -30,10 +29,11 @@ import {
   IOS_URN_ARG_ANCHOR,
   IOS_USE_FRAMEWORKS_STATEMENT,
 } from "./constants";
-import { FlipperConfig } from "./types";
 import path from "path";
 import fs from "fs";
 import dedent from "ts-dedent";
+import { type FlipperConfig } from "./types";
+import { type ExpoConfig } from "expo/config";
 
 /** Create a namepaced tag */
 const tag = (s: string) => `${EXPO_FLIPPER_TAG}-${s}`;

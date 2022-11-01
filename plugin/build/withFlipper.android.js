@@ -8,7 +8,7 @@ withFlipper
 */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withFlipperAndroid = void 0;
-const config_plugins_1 = require("@expo/config-plugins");
+const config_plugins_1 = require("expo/config-plugins");
 const constants_1 = require("./constants");
 function withFlipperAndroid(config, cfg) {
     return (0, config_plugins_1.withGradleProperties)(config, (c) => {
