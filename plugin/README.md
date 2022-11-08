@@ -140,9 +140,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://twitter.com/kudochien"><img src="https://avatars.githubusercontent.com/u/46429?v=4?s=100" width="100px;" alt="Kudo Chien"/><br /><sub><b>Kudo Chien</b></sub></a><br /><a href="https://github.com/jakobo/expo-community-flipper/commits?author=Kudo" title="Documentation">📖</a> <a href="#question-Kudo" title="Answering Questions">💬</a></td>
     </tr>
   </tbody>
-  <tfoot>
-    
-  </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
