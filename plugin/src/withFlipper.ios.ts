@@ -16,13 +16,12 @@ withProductionEnv
   :production => production,
 */
 
-import { withDangerousMod } from "@expo/config-plugins";
+import { withDangerousMod } from "expo/config-plugins";
 import {
   mergeContents,
-  MergeResults,
   removeContents,
+  type MergeResults,
 } from "@expo/config-plugins/build/utils/generateCode";
-import { ExpoConfig } from "@expo/config-types";
 import {
   EXPO_FLIPPER_TAG,
   IOS_HAS_FLIPPER_ARG,
@@ -30,10 +29,11 @@ import {
   IOS_URN_ARG_ANCHOR,
   IOS_USE_FRAMEWORKS_STATEMENT,
 } from "./constants";
-import { FlipperConfig } from "./types";
 import path from "path";
 import fs from "fs";
 import dedent from "ts-dedent";
+import { type FlipperConfig } from "./types";
+import { type ExpoConfig } from "expo/config";
 
 /** Create a namepaced tag */
 const tag = (s: string) => `${EXPO_FLIPPER_TAG}-${s}`;
@@ -43,8 +43,7 @@ const createFlipperArgument = (version?: string) => {
   const active = version
     ? `FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '${version}' }),`
     : `FlipperConfiguration.enabled,`;
-  const inactive = `FlipperConfiguration.disabled`;
-  return `:flipper_configuration => ENV['FLIPPER_DISABLE'] == "1" ? ${inactive} : ${active}`;
+  return `:flipper_configuration => ${active}`;
 };
 
 /** Removes content by its tag */
@@ -77,41 +76,8 @@ function withEnvProductionPodfile(config: ExpoConfig) {
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
-
-      // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
-      // so instead, remove the content first, then attempt the insert
-      const results: MergeResults[] = [];
-      results.push(removeTaggedContent(contents, "isprod"));
-
-      const preexisting = IOS_HAS_PRODUCTION_ARG.test(last(results).contents);
-      if (!preexisting) {
-        results.push(
-          mergeContents({
-            tag: tag("isprod"),
-            src: last(results).contents,
-            newSrc: indent(
-              [
-                "# ENV value added to support Hermes",
-                ':production => ENV["PRODUCTION"] == "1" ? true : false,',
-              ],
-              4
-            ),
-            anchor: IOS_URN_ARG_ANCHOR,
-            offset: -1,
-            comment: "#",
-          })
-        );
-      }
-
-      // couldn't remove and couldn't add. Treat the operation as failed
-      if (!last(results).didMerge) {
-        throw new Error(
-          "Cannot add use_flipper to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
-        );
-      }
-
-      fs.writeFileSync(filePath, last(results).contents);
-
+      const updatedContents = updatePodfileContentsWithProductionFlag(contents);
+      fs.writeFileSync(filePath, updatedContents);
       return c;
     },
   ]);
@@ -126,7 +92,7 @@ function withFlipperPodfile(config: ExpoConfig, cfg: FlipperConfig) {
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
-      const updatedContents = updatePodfileContents(contents, cfg);
+      const updatedContents = updatePodfileContentsWithFlipper(contents, cfg);
       fs.writeFileSync(filePath, updatedContents);
       return c;
     },
@@ -206,18 +172,51 @@ function withoutUseFrameworks(config: ExpoConfig) {
   return config;
 }
 
-export function withFlipperIOS(config: ExpoConfig, cfg: FlipperConfig) {
-  config = withEnvProductionPodfile(config);
-  config = withFlipperPodfile(config, cfg);
+/** Given Podfile contents, edit the file via regexes to insert the production flag for hermes if required */
+export function updatePodfileContentsWithProductionFlag(contents: string) {
+  // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
+  // so instead, remove the content first, then attempt the insert
+  const results: MergeResults[] = [];
+  results.push(removeTaggedContent(contents, "isprod"));
 
-  if (cfg.ios.stripUseFrameworks === true) {
-    config = withoutUseFrameworks(config);
+  // Hermes/Flipper used to care about ENV.PRODUCTION
+  // Before we add the arg, we check to see if the keyed argument
+  // is already passed into use_react_native
+  const preexisting = IOS_HAS_PRODUCTION_ARG.test(last(results).contents);
+  if (!preexisting) {
+    results.push(
+      mergeContents({
+        tag: tag("isprod"),
+        src: last(results).contents,
+        newSrc: indent(
+          [
+            "# ENV value added to support Hermes",
+            ':production => ENV["PRODUCTION"] == "1" ? true : false,',
+          ],
+          4
+        ),
+        anchor: IOS_URN_ARG_ANCHOR,
+        offset: -1,
+        comment: "#",
+      })
+    );
   }
 
-  return config;
+  // couldn't remove and couldn't add. Treat the operation as failed
+  if (!last(results).didMerge) {
+    throw new Error(
+      "Cannot add use_flipper to the project's ios/Podfile. Please report this with a copy of your project Podfile. You can generate this with the `expo prebuild` command."
+    );
+  }
+
+  return last(results).contents;
 }
 
-export function updatePodfileContents(contents: string, cfg: FlipperConfig) {
+/** Given Podfile contents, edit the file via regexes to insert the flipper arguments */
+export function updatePodfileContentsWithFlipper(
+  contents: string,
+  cfg: FlipperConfig
+) {
   // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
   // so instead, remove the content first, then attempt the insert
   const results: MergeResults[] = [];
@@ -230,13 +229,7 @@ export function updatePodfileContents(contents: string, cfg: FlipperConfig) {
       mergeContents({
         tag: tag("urn"),
         src: last(results).contents,
-        newSrc: indent(
-          [
-            "# Flipper arguments generated from app.json",
-            createFlipperArgument(cfg.version),
-          ],
-          4
-        ),
+        newSrc: indent([createFlipperArgument(cfg.version)], 4),
         anchor: IOS_URN_ARG_ANCHOR,
         offset: 1,
         comment: "#",
@@ -251,4 +244,15 @@ export function updatePodfileContents(contents: string, cfg: FlipperConfig) {
     );
   }
   return last(results).contents;
+}
+
+export function withFlipperIOS(config: ExpoConfig, cfg: FlipperConfig) {
+  config = withEnvProductionPodfile(config);
+  config = withFlipperPodfile(config, cfg);
+
+  if (cfg.ios.stripUseFrameworks === true) {
+    config = withoutUseFrameworks(config);
+  }
+
+  return config;
 }

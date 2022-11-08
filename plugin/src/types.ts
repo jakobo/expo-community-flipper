@@ -1,3 +1,5 @@
+import { type ExpoConfig } from "expo/config";
+
 type iOSFlipperConfig = {
   enabled: boolean;
   stripUseFrameworks?: boolean;
@@ -19,4 +21,8 @@ type FlipperOptions = {
   version?: string;
   ios?: boolean | iOSFlipperConfig;
   android?: boolean | AndroidFlipperConfig;
+};
+
+export type ExpoConfigWithMods = ExpoConfig & {
+  mods: Record<"ios" | "android", Record<string, unknown[]>>;
 };

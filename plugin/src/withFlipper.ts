@@ -1,8 +1,8 @@
-import { ConfigPlugin } from "@expo/config-plugins";
-import { WithFlipperOptions } from "./types";
 import { getConfiguration } from "./util";
 import { withFlipperIOS } from "./withFlipper.ios";
 import { withFlipperAndroid } from "./withFlipper.android";
+import { type ConfigPlugin } from "expo/config-plugins";
+import { type WithFlipperOptions } from "./types";
 
 /** Enable flipper on this application */
 export const withFlipper: ConfigPlugin<WithFlipperOptions> = (

@@ -6,12 +6,15 @@ withFlipper
   Set FLIPPER_VERSION if required
 */
 
-import { withGradleProperties } from "@expo/config-plugins";
-import { ExpoConfig } from "@expo/config-types";
+import { withGradleProperties } from "expo/config-plugins";
 import { ANDROID_FLIPPER_KEY, FLIPPER_FALLBACK } from "./constants";
-import { FlipperConfig } from "./types";
+import { type FlipperConfig } from "./types";
+import { type ExpoConfig } from "expo/config";
 
-export function withFlipperAndroid(config: ExpoConfig, cfg: FlipperConfig) {
+export function withFlipperAndroid(
+  config: ExpoConfig,
+  cfg: FlipperConfig
+): ExpoConfig {
   return withGradleProperties(config, (c) => {
     // check for flipper version in package. If set, use that
     let existing: string | undefined;
