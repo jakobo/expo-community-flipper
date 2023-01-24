@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "47.0.0",
+  "version": "47.0.1",
   "name": "expo-community-flipper-root",
   "workspaces": [
     "example",

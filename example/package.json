@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "version": "47.0.0",
+  "version": "47.0.1",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
