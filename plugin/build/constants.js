@@ -6,7 +6,7 @@ exports.EXPO_FLIPPER_TAG = "expo-community-flipper";
 /** The gradle property containing flipper version info */
 exports.ANDROID_FLIPPER_KEY = "FLIPPER_VERSION";
 /** If all else fails, try this flipper version */
-exports.FLIPPER_FALLBACK = "0.125.0";
+exports.FLIPPER_FALLBACK = "0.163.0";
 /** In iOS, this is the line we anchor to for adding args to use_react_native!() */
 exports.IOS_URN_ARG_ANCHOR = /:fabric_enabled => flags\[:fabric_enabled\],/;
 /** In a Podfile, this regex tells us the :production arg is already there */

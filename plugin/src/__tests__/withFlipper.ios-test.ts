@@ -101,8 +101,8 @@ describe(updatePodfileContentsWithFlipper, () => {
           :path => config[:reactNativePath],
           :hermes_enabled => flags[:hermes_enabled] || podfile_properties['expo.jsEngine'] == 'hermes',
           :fabric_enabled => flags[:fabric_enabled],
-      # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-e0b63a074be5a4d71abbed7567b32a38d60605cf
-          :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.999.0' }),
+      # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-c4e29a0d8d26d89d18d83e849fad0d0cec9ab064
+          :flipper_configuration => FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"], { 'Flipper' => '0.999.0' }),
       # @generated end expo-community-flipper-urn
           # An absolute path to your application root.
           :app_path => "#{Dir.pwd}/.."
@@ -123,8 +123,8 @@ describe(updatePodfileContentsWithFlipper, () => {
           :path => config[:reactNativePath],
           :hermes_enabled => podfile_properties['expo.jsEngine'] == 'hermes',
           :fabric_enabled => flags[:fabric_enabled],
-      # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-e0b63a074be5a4d71abbed7567b32a38d60605cf
-          :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.999.0' }),
+      # @generated begin expo-community-flipper-urn - expo prebuild (DO NOT MODIFY) sync-c4e29a0d8d26d89d18d83e849fad0d0cec9ab064
+          :flipper_configuration => FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"], { 'Flipper' => '0.999.0' }),
       # @generated end expo-community-flipper-urn
           # An absolute path to your application root.
           :app_path => "#{Pod::Config.instance.installation_root}/..",

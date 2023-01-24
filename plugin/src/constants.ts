@@ -5,7 +5,7 @@ export const EXPO_FLIPPER_TAG = "expo-community-flipper";
 export const ANDROID_FLIPPER_KEY = "FLIPPER_VERSION";
 
 /** If all else fails, try this flipper version */
-export const FLIPPER_FALLBACK = "0.125.0";
+export const FLIPPER_FALLBACK = "0.163.0";
 
 /** In iOS, this is the line we anchor to for adding args to use_react_native!() */
 export const IOS_URN_ARG_ANCHOR =

@@ -40,9 +40,14 @@ const tag = (s: string) => `${EXPO_FLIPPER_TAG}-${s}`;
 
 /** Return the flipper enabling line for use inside of use_react_native */
 const createFlipperArgument = (version?: string) => {
+  // support NO_FLIPPER
+  if (process.env.NO_FLIPPER === "1") {
+    return `:flipper_configuration => FlipperConfiguration.disabled`;
+  }
+
   const active = version
-    ? `FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '${version}' }),`
-    : `FlipperConfiguration.enabled,`;
+    ? `FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"], { 'Flipper' => '${version}' }),`
+    : `FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"]),`;
   return `:flipper_configuration => ${active}`;
 };
 
