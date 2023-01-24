@@ -88,6 +88,15 @@
       "contributions": [
         "question"
       ]
+    },
+    {
+      "login": "Drew-Gerber",
+      "name": "Andrew Gerber",
+      "avatar_url": "https://avatars.githubusercontent.com/u/118285913?v=4",
+      "profile": "https://github.com/Drew-Gerber",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
