@@ -1,5 +1,18 @@
 ⚠️ **NOTE** This project's `major` semver matches the supported Expo SDK version. This helps spot inconsistencies between your Expo SDK and this plugin, as well as ensuring any changes to the upstream config-plugins system are properly addressed.
 
+# 47.x.x (Expo SDK 47)
+
+### 47.0.1
+
+##### 🛠️ Fixes
+
+- Added support for the default `NO_FLIPPER` emerging standard c6e0732
+- Added support for all profiles, possibly related to a regression where react-native would attempt to bundle a non-linked flipper resulting in a symbole error `_OBJC_CLASS_$_FlipperClient` c6e0732
+
+### 47.0.0
+
+Release for compatibility with SDK 47.
+
 # 46.x.x (Expo SDK 46)
 
 ### 46.0.2
