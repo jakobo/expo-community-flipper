@@ -46,8 +46,8 @@ const createFlipperArgument = (version?: string) => {
   }
 
   const active = version
-    ? `FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"], { 'Flipper' => '${version}' }),`
-    : `FlipperConfiguration.enabled(["Debug", "Dev.Debug", "Release"]),`;
+    ? `FlipperConfiguration.enabled(["Debug", "Release"], { 'Flipper' => '${version}' }),`
+    : `FlipperConfiguration.enabled(["Debug", "Release"]),`;
   return `:flipper_configuration => ${active}`;
 };
 
