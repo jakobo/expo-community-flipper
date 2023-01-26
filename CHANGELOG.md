@@ -2,6 +2,12 @@
 
 # 47.x.x (Expo SDK 47)
 
+### 47.0.2
+
+##### 🛠️ Fixes
+
+- Fixes issue where `Dev.Debug` was not a whitelisted metro configuration 45ed26d #49
+
 ### 47.0.1
 
 ##### 🛠️ Fixes
