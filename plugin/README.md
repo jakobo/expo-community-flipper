@@ -1,8 +1,15 @@
 # expo-community-flipper
 
-Flipper Support for Expo Apps
+Flipper Support for Expo Apps <= SDK 47
 
-> ⚠️ Please see [this issue](https://github.com/jakobo/expo-community-flipper/issues/27) about known compatibility issues with other plugins.
+> 🎉 As of Expo 48, Flipper support is available via the official build-properties plugin, with a simpler interface and proper support! [read the docs](https://docs.expo.dev/versions/latest/sdk/build-properties/) [announcement](https://twitter.com/jakobo/status/1629531998262837249?s=20)<br />
+> If you're running into issues with the official build-properties plugin, [check for an existing issue](https://github.com/expo/expo/issues?q=flipper+label%3A"Development+Builds")
+
+> ⚠️ (SDK 46, 47) Please see [this issue](https://github.com/jakobo/expo-community-flipper/issues/27) about known compatibility issues with other plugins.
+
+<hr />
+
+> The remainder of this README applies to installing expo-community-flipper for SDK 47 and earlier.
 
 # Usage (Quick Guide)
 
@@ -115,7 +122,9 @@ An `/example` directory is built with `expo init example` for each major SDK rel
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
