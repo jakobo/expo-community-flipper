@@ -1,6 +1,6 @@
 {
   "name": "expo-community-flipper",
-  "version": "47.0.2",
+  "version": "48.0.0",
   "description": "Flipper Support for Expo Apps < SDK 48",
   "main": "build/withFlipper.js",
   "types": "build/withFlipper.d.ts",
