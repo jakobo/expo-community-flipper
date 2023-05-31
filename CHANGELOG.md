@@ -1,5 +1,13 @@
 ⚠️ **NOTE** This project's `major` semver matches the supported Expo SDK version. This helps spot inconsistencies between your Expo SDK and this plugin, as well as ensuring any changes to the upstream config-plugins system are properly addressed.
 
+# 48.x.x (Expo SDK 48)
+
+Project is now part of the official expo build-properties-plugin https://docs.expo.dev/versions/latest/sdk/build-properties/
+
+### 48.0.1
+
+- Improves failure message if running SDK 48 and the build-properties-plugin is available in the expo template
+
 # 47.x.x (Expo SDK 47)
 
 ### 47.0.2

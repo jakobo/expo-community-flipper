@@ -24,6 +24,7 @@ import {
 } from "@expo/config-plugins/build/utils/generateCode";
 import {
   EXPO_FLIPPER_TAG,
+  IOS_HAS_BUILD_PROPERTIES_SUPPORT,
   IOS_HAS_FLIPPER_ARG,
   IOS_HAS_PRODUCTION_ARG,
   IOS_URN_ARG_ANCHOR,
@@ -74,6 +75,15 @@ const indent = (block: string | string[], size: number) => {
     .join("\n");
 };
 
+/** Check for Expo SDK 48 with build-properties-plugin support */
+function blockIfBuildPropertiesSupport(podfile: string) {
+  if (IOS_HAS_BUILD_PROPERTIES_SUPPORT.test(podfile)) {
+    throw new Error(
+      "This project is on Expo SDK48 and can use the build-properties plugin. Please see: https://docs.expo.dev/versions/latest/sdk/build-properties/"
+    );
+  }
+}
+
 /** Add the production arg to the use_react_native block */
 function withEnvProductionPodfile(config: ExpoConfig) {
   config = withDangerousMod(config, [
@@ -81,6 +91,9 @@ function withEnvProductionPodfile(config: ExpoConfig) {
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
+
+      blockIfBuildPropertiesSupport(contents);
+
       const updatedContents = updatePodfileContentsWithProductionFlag(contents);
       fs.writeFileSync(filePath, updatedContents);
       return c;
@@ -97,6 +110,9 @@ function withFlipperPodfile(config: ExpoConfig, cfg: FlipperConfig) {
     async (c) => {
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
+
+      blockIfBuildPropertiesSupport(contents);
+
       const updatedContents = updatePodfileContentsWithFlipper(contents, cfg);
       fs.writeFileSync(filePath, updatedContents);
       return c;
@@ -116,6 +132,8 @@ function withoutUseFrameworks(config: ExpoConfig) {
 
       const filePath = path.join(c.modRequest.platformProjectRoot, "Podfile");
       const contents = fs.readFileSync(filePath, "utf-8");
+
+      blockIfBuildPropertiesSupport(contents);
 
       // #3 We cannot tell if a merge failed because of a malformed podfile or it was a noop
       // so instead, remove the content first, then attempt the insert

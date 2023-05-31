@@ -15,6 +15,10 @@ export const IOS_URN_ARG_ANCHOR =
 export const IOS_HAS_PRODUCTION_ARG =
   /use_react_native!\([\s\S]*:production\s+=>/gm;
 
+/** In iOS, we can detect that the template is build-properties plugin ready */
+export const IOS_HAS_BUILD_PROPERTIES_SUPPORT =
+  /:flipper_configuration => flipper_config/gm;
+
 /** In a Podfile, this regex tells us the :flipper_configuration arg is already there */
 export const IOS_HAS_FLIPPER_ARG =
   /use_react_native!\([\s\S]*^\s*:flipper_configuration\s+=>/gm;

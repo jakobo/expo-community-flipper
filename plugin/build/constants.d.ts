@@ -8,6 +8,8 @@ export declare const FLIPPER_FALLBACK = "0.163.0";
 export declare const IOS_URN_ARG_ANCHOR: RegExp;
 /** In a Podfile, this regex tells us the :production arg is already there */
 export declare const IOS_HAS_PRODUCTION_ARG: RegExp;
+/** In iOS, we can detect that the template is build-properties plugin ready */
+export declare const IOS_HAS_BUILD_PROPERTIES_SUPPORT: RegExp;
 /** In a Podfile, this regex tells us the :flipper_configuration arg is already there */
 export declare const IOS_HAS_FLIPPER_ARG: RegExp;
 /** In a Podfile, this regex detects if use_frameworks is enabled. It also serves as our anchor */

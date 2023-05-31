@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IOS_USE_FRAMEWORKS_STATEMENT = exports.IOS_HAS_FLIPPER_ARG = exports.IOS_HAS_PRODUCTION_ARG = exports.IOS_URN_ARG_ANCHOR = exports.FLIPPER_FALLBACK = exports.ANDROID_FLIPPER_KEY = exports.EXPO_FLIPPER_TAG = void 0;
+exports.IOS_USE_FRAMEWORKS_STATEMENT = exports.IOS_HAS_FLIPPER_ARG = exports.IOS_HAS_BUILD_PROPERTIES_SUPPORT = exports.IOS_HAS_PRODUCTION_ARG = exports.IOS_URN_ARG_ANCHOR = exports.FLIPPER_FALLBACK = exports.ANDROID_FLIPPER_KEY = exports.EXPO_FLIPPER_TAG = void 0;
 /** Base expo tag for dangerous mods */
 exports.EXPO_FLIPPER_TAG = "expo-community-flipper";
 /** The gradle property containing flipper version info */
@@ -11,6 +11,8 @@ exports.FLIPPER_FALLBACK = "0.163.0";
 exports.IOS_URN_ARG_ANCHOR = /:fabric_enabled => flags\[:fabric_enabled\],/;
 /** In a Podfile, this regex tells us the :production arg is already there */
 exports.IOS_HAS_PRODUCTION_ARG = /use_react_native!\([\s\S]*:production\s+=>/gm;
+/** In iOS, we can detect that the template is build-properties plugin ready */
+exports.IOS_HAS_BUILD_PROPERTIES_SUPPORT = /:flipper_configuration => flipper_config/gm;
 /** In a Podfile, this regex tells us the :flipper_configuration arg is already there */
 exports.IOS_HAS_FLIPPER_ARG = /use_react_native!\([\s\S]*^\s*:flipper_configuration\s+=>/gm;
 /** In a Podfile, this regex detects if use_frameworks is enabled. It also serves as our anchor */
